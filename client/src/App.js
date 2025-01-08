@@ -1,11 +1,17 @@
-import React from 'react';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-   function App() {
-       return (
-           <div>
-               <h1>Bienvenido a Nudo Task: tu task tracker</h1>
-           </div>
-       );
-   }
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Router>
+  );
+};
 
-   export default App;
+export default App;

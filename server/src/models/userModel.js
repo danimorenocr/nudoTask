@@ -1,38 +1,44 @@
-const db = require("../config/db");
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/db");
 
-// Función para obtener todos los usuarios
-const getAllUsers = (callback) => {
-  db.query("SELECT * FROM Usuario", (err, results) => {
-    if (err) {
-      console.error("Error al obtener usuarios", err);
-      return callback(err, null);
-    }
-    callback(null, results);
-  });
-};
+const Usuario = sequelize.define("Usuario", {
+  nombre: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  nombre_usuario: {
+    type: DataTypes.STRING,
+    unique: true,
+    allowNull: false,
+  },
+  fecha_nacimiento: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  correo: {
+    type: DataTypes.STRING,
+    unique: true,
+    allowNull: false,
+  },
+  contrasena: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  correo_verificado: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  foto: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+}, {
+  // Configuración de la tabla y otras opciones
+  tableName: "usuario",  // Nombre exacto de la tabla
+  timestamps: false,     // Desactiva los timestamps `createdAt` y `updatedAt`
+});
 
-// CREAR USUARIO
-const createUser = (userData, callback) => {
-  const {
-    nombre,
-    nombreUsuario,
-    fecha,
-    correo,
-    contrasena,
-    correoVerificado,
-    foto,
-  } = userData;
-  db.query(
-    "INSERT INTO Usuario (nombre, nombre_usuario, fecha_nacimiento, correo, contrasena, correo_verificado, foto ) VALUES (?,?,?,?,?,?,?)",
-    [nombre, nombreUsuario, fecha, correo, contrasena, correoVerificado, foto],
-    (err, results) => {
-      if (err) {
-        console.error("Error al crear el usuario", err);
-        return callback(err, null);
-      }
-      callback(null, results);
-    }
-  );
-};
+// Sincroniza el modelo con la base de datos
+Usuario.sync();
 
-module.exports = { getAllUsers, createUser };
+module.exports = Usuario;

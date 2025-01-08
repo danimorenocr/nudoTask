@@ -1,45 +1,45 @@
-const userModel = require("../models/userModel");
+const User = require('../models/userModel');
 
-// Controlador para obtener todos los usuarios
-const getAllUsers = (req, res) => {
-  userModel.getAllUsers((err, results) => {
-    if (err) {
-      return res.status(500).json({ message: "Error al obtener usuarios" });
+// Obtener detalles del usuario por ID
+const getUserDetails = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await User.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado.' });
     }
-    res.status(200).json(results);
-  });
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Hubo un error al obtener los detalles del usuario.' });
+  }
 };
 
-const createUser = (req, res) => {
-  // Recibir info del front
-  const {
-    nombre,
-    nombreUsuario,
-    fecha,
-    correo,
-    contrasena,
-    correoVerificado,
-    foto,
-  } = req.body;
+// Actualizar la información del usuario
+const updateUserDetails = async (req, res) => {
+  const { id } = req.params;
+  const { nombre, nombre_usuario, fecha_nacimiento, foto } = req.body;
 
-  // Pasar lo del front a el modelo de userData
-
-  const userData = {
-    nombre,
-    nombreUsuario,
-    fecha,
-    correo,
-    contrasena,
-    correoVerificado,
-    foto,
-  };
-
-  userModel.createUser(userData, (err, results) => {
-    if (err) {
-      return res.status(500).json({ message: "Error al crear eel usuario" });
+  try {
+    const user = await User.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado.' });
     }
-    res.status(201).json({ message: "Usuario creado con éxito", data: results });
-  });
+
+    // Actualizar los campos del usuario
+    user.nombre = nombre || user.nombre;
+    user.nombre_usuario = nombre_usuario || user.nombre_usuario;
+    user.fecha_nacimiento = fecha_nacimiento || user.fecha_nacimiento;
+    user.foto = foto || user.foto;
+
+    await user.save();
+
+    res.status(200).json({ message: 'Información del usuario actualizada.', user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Hubo un error al actualizar la información del usuario.' });
+  }
 };
 
-module.exports = { getAllUsers, createUser };
+module.exports = { getUserDetails, updateUserDetails };
