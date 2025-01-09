@@ -1,4 +1,5 @@
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 const API_URL = "http://localhost:5000/api/auth";
 
@@ -18,7 +19,15 @@ const logout = () => {
 };
 
 const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
+  if (!token) return null;
+
+  try {
+    return jwtDecode(token); // Decodifica el token JWT
+  } catch (err) {
+    console.error("Error al decodificar el token:", err);
+    return null;
+  }
 };
 const authService = {
   register,

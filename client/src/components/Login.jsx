@@ -6,10 +6,10 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const history = useNavigate(); // redirije a otras paginas
+  const navigate = useNavigate(); // redirije a otras paginas
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Evita que el formulario se envíe de la forma tradicional
+    e.preventDefault();
     try {
       const response = await axios.post(
         "http://localhost:5000/api/auth/login",
@@ -18,13 +18,25 @@ const Login = () => {
           contrasena: password,
         }
       );
-      console.log(response.data); // Verificar la respuesta del backend
-      localStorage.setItem("token", response.data.token); // Almacenar el token JWT - mantener la sesion del usuario
-      history.push("/dashboard"); // Redirigir al dashboard
+
+      console.log("Response data:", response.data);
+
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+        navigate("/dashboard");
+        console.log("No navega");
+      } else {
+        setError("Error: No se recibió un token.");
+      }
     } catch (err) {
-      setError("Correo o contraseña incorrectos.");
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message); // Mostrar mensaje específico del backend
+      } else {
+        setError("Hubo un error al intentar iniciar sesión.");
+      }
     }
   };
+
   return (
     <div className="login-container">
       <h2>Iniciar sesion</h2>
