@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -24,7 +26,6 @@ const Login = () => {
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
         navigate("/dashboard");
-        console.log("No navega");
       } else {
         setError("Error: No se recibió un token.");
       }
@@ -39,10 +40,10 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <h2>Iniciar sesion</h2>
+      <h2>{t("login")}</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="email">Correo</label>
+          <label htmlFor="email">{t("email")}</label>
           <input
             type="email"
             id="email"
@@ -52,7 +53,7 @@ const Login = () => {
           />
         </div>
         <div>
-          <label htmlFor="password">Contraseña</label>
+          <label htmlFor="password">{t("password")}</label>
           <input
             type="password"
             id="password"
@@ -62,7 +63,7 @@ const Login = () => {
           />
         </div>
         {error && <p className="error">{error}</p>}
-        <button type="submit">Iniciar Sesión</button>
+        <button type="submit">{t("login")}</button>
       </form>
     </div>
   );

@@ -302,6 +302,11 @@ npm list --depth=0
 cd client
 npm list --depth=0
 ```
+# DEEPENDENCIAS
+BCRYPT SEQUELIZE NODEMAILER  googleapis
+idioma
+npm install i18next react-i18next i18next-browser-languagedetector i18next-http-backend
+
 
 #########################################################################################
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import authService from '../services/authService';
+import { useTranslation } from "react-i18next";
 
 const Dashboard = () => {
+const { t } = useTranslation();
   const user = authService.getCurrentUser();
 
   if (!user) {
@@ -11,7 +13,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2>Bienvenido, {user.nombre}</h2>
+      <h2>{t("welcome")} {user.nombre}</h2>
       <p>Este es el dashboard privado.</p>
     </div>
   );
