@@ -3,13 +3,14 @@
 .login-page {
   display: flex;
   height: 100vh;
-  font-family: 'Fredoka', sans-serif;
+  font-family: "Fredoka", sans-serif;
 }
 
 /* Imagen del lado izquierdo */
 .login-image {
   flex: 1;
-  background: url('../assets/img/loginFondoClaro.jpg') center center / cover no-repeat;
+  background: url("../assets/img/loginFondoClaro.jpg") center center / cover
+    no-repeat;
   position: relative;
 }
 
@@ -25,10 +26,9 @@
   border-radius: 20px;
   cursor: pointer;
   transition: 0.3s;
-  font-family: 'Fredoka', sans-serif;
+  font-family: "Fredoka", sans-serif;
   font-weight: 200;
 }
- 
 
 .signup-button:hover {
   color: #1585c2;
@@ -49,19 +49,8 @@
   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Selector de idioma */
-.language-toggle {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
-
-.language-icon {
-  margin-right: 10px;
-}
-
-.language-label {
-  font-weight: bold;
+.logo-container{
+justify-items: center;
 }
 
 /* Logo */
@@ -74,10 +63,9 @@
   font-size: 36px;
   font-weight: lighter;
   margin-top: 1px;
-
 }
 /* Título de bienvenida */
-.welcome-title-nudo{
+.welcome-title-nudo {
   font-size: 40px;
   font-weight: 500;
   margin: 0px;
@@ -104,7 +92,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 24px;
-  font-family:'Fredoka', sans-serif;
+  font-family: "Fredoka", sans-serif;
 }
 
 .form-input:focus {
@@ -135,14 +123,14 @@
   font-size: 24px;
   cursor: pointer;
   transition: 0.3s;
-  font-family: 'Fredoka', sans-serif;
+  font-family: "Fredoka", sans-serif;
 }
 
 .login-button:hover {
   color: #ffffff;
   background: rgb(0, 0, 0);
   transform: scale(1.1); /* Pequeño aumento de tamaño */
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.81);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
   font-weight: 500;
 }
 

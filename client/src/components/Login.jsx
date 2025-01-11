@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import "../styles/login.css";
-import LanguageSwitch from "../components/LanguageSwitcher";
+import LanguageSwitcher from "../components/LanguageSwitcher";
 
 const Login = () => {
   const { t } = useTranslation();
@@ -40,56 +40,29 @@ const Login = () => {
     }
   };
 
-  // return (
-  //   <div className="login-container">
-  //     <h2 className="login-title">{t("login")}</h2>
-  //     <form className="login-form" onSubmit={handleSubmit}>
-  //       <div className="form-group">
-  //         <label htmlFor="email" className="form-label">
-  //           {t("email")}
-  //         </label>
-  //         <input
-  //           type="email"
-  //           id="email"
-  //           className="form-input"
-  //           value={email}
-  //           onChange={(e) => setEmail(e.target.value)}
-  //           required
-  //         />
-  //       </div>
-  //       <div className="form-group">
-  //         <label htmlFor="password" className="form-label">
-  //           {t("password")}
-  //         </label>
-  //         <input
-  //           type="password"
-  //           id="password"
-  //           className="form-input"
-  //           value={password}
-  //           onChange={(e) => setPassword(e.target.value)}
-  //           required
-  //         />
-  //       </div>
-  //       {error && <p className="form-error">{error}</p>}
-  //       <button type="submit" className="form-button">
-  //         {t("login")}
-  //       </button>
-  //     </form>
-  //   </div>
-  // );
+  const handleSignUpClick = (e) => {
+    e.preventDefault();
+    navigate("/register"); // Redirige al formulario de registro
+  };
 
   return (
     <div className="login-page">
       <div className="login-image">
-        <button className="signup-button">{t("register")}</button>
+        <button className="signup-button" onClick={handleSignUpClick}>
+          {t("register")}
+        </button>
       </div>
       <div className="login-form-container">
-        <LanguageSwitch />
-        <div className="logo">
-          <img src="logo.png" alt="NudoTask Logo" />
+        <LanguageSwitcher />
+        <div className="logo-container">
+          <div className="logo">
+            <img src="logo.png" alt="NudoTask Logo" />
+          </div>
+          <div>
+            <h2 className="welcome-title-nudo">NudoTask</h2>
+            <h2 className="welcome-title">{t("welcome")}</h2>
+          </div>
         </div>
-        <h2 className="welcome-title-nudo">NudoTask</h2>
-        <h2 className="welcome-title">{t("welcome")}</h2>
         <form className="login-form" onSubmit={handleSubmit}>
           <label className="form-label" htmlFor="email">
             {t("email")}
@@ -120,10 +93,16 @@ const Login = () => {
             {t("login")}
           </button>
         </form>
-        <p className="signup-text">
-          {t("account")} <a href="/"> {t("register")}</a>
+        <div className="signup-text">
+          <p>
+            {t("account")}{" "}
+            <button onClick={handleSignUpClick} className="link-button">
+              {t("register")}
+            </button>
+          </p>
+
           {error && <p className="form-error">{error}</p>}
-        </p>
+        </div>
       </div>
     </div>
   );

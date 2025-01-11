@@ -1,0 +1,125 @@
+.register-page {
+  display: flex;
+  height: 100vh;
+  font-family: "Fredoka", sans-serif;
+}
+
+.register-image {
+  flex: 1;
+  background: url("../assets/img/loginFondoClaro.jpg") no-repeat center
+    center/cover;
+      position: relative;
+}
+
+.register-form-container {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.signup-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 7px 40px;
+  font-size: 24px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.3); /* Blanco con 50% de transparencia */
+  border: 2px solid #ffffff;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 200;
+}
+
+.signup-button:hover {
+  color: #1585c2;
+  background: rgba(255, 255, 255, 0.7);
+  transform: scale(1.1); /* Pequeño aumento de tamaño */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  font-weight: 500;
+}
+
+.logo img {
+  width: 80px;
+  margin-top: 1rem;
+}
+
+.welcome-title-nudo {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.welcome-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.register-form {
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-label {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.register-button {
+margin-left: 3rem;
+  padding: 5px 100px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: "Fredoka", sans-serif;
+}
+.register-button:hover {
+  color: #ffffff;
+  background: rgb(0, 0, 0);
+  transform: scale(1.1); /* Pequeño aumento de tamaño */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
+
+.error {
+  color: red;
+  font-size: 0.875rem;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: #1585c2;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+}
+.link-button:hover {
+  background: none;
+  border: none;
+  color: #1585c2;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+}
+
