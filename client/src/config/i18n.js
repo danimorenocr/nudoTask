@@ -13,31 +13,35 @@ i18n
     resources: {
       es: {
         translation: {
-          welcome: "Bienvenido",
+          welcome: "¡Bienvenido!",
           register: "Registrarse",
           login: "Iniciar Sesión",
-          changeLanguage: "Cambiar a Inglés",
+          changeLanguage: "EN",
           name: "Nombre: ",
           username: "Nombre de usuario: ",
           birthday: "Fecha de nacimiento: ",
           email: "Correo: ",
-          password: "Contraseña: "
+          password: "Contraseña: ",
+          forgot: "¿Olvidaste la contraseña?",
+          account:"¿No tienes una cuenta?",
         },
       },
       en: {
         translation: {
-          welcome: "Welcome",
-          register: "Register",
+          welcome: "¡Welcome!",
+          register: "Sign Up",
           login: "Login",
-          changeLanguage: "Switch to Spanish",
-           name: "Name: ",
+          changeLanguage: "ES",
+          name: "Name: ",
           username: "Username: ",
           birthday: "Date of birthday: ",
           email: "Email: ",
-          password: "Password: "
+          password: "Password: ",
+          forgot: "Forgot the password?",
+          account:"Don't have an account?",
         },
       },
     },
   });
 
-  export default i18n;
+export default i18n;

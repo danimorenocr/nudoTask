@@ -23,12 +23,17 @@ const getCurrentUser = () => {
   if (!token) return null;
 
   try {
-    return jwtDecode(token); // Decodifica el token JWT
+    const decodedToken = jwtDecode(token); // Decodifica el token
+    console.log("Token decodificado:", decodedToken);
+
+    // Retorna el token completo o solo el nombre, según lo que necesites
+    return decodedToken;
   } catch (err) {
     console.error("Error al decodificar el token:", err);
     return null;
   }
 };
+
 const authService = {
   register,
   login,

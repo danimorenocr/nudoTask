@@ -38,7 +38,9 @@ const registerUser = async (req, res) => {
     //   Verificar si el usuario existe
     const userExistsName = await User.findOne({ where: { nombre_usuario } });
     if (userExistsName) {
-      return res.status(400).json({ message: "El nombre de usuario ya esta registrado." });
+      return res
+        .status(400)
+        .json({ message: "El nombre de usuario ya esta registrado." });
     }
     // Encriptar contraseña
     const hashedPassword = await bcrypt.hash(contrasena, 10);
@@ -54,8 +56,14 @@ const registerUser = async (req, res) => {
       foto,
     });
 
+    console.log("Datos del usuario para el token:", newUser);
+
+    const payload = {
+      id: newUser.id, // ID del usuario
+      nombre: newUser.nombre, // Nombre del usuario
+    };
     // Crear Token jwt
-    const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
 
@@ -82,9 +90,12 @@ const loginUser = async (req, res) => {
     if (!password) {
       res.status(400).json({ message: "Contraseña incorrecta" });
     }
-
+    const payload = {
+      id: user.id, // ID del usuario
+      nombre: user.nombre, // Nombre del usuario
+    };
     // Crear Token jwt
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
 
