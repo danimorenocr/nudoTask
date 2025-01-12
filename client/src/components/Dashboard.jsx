@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import authService from "../services/authService";
 import { useTranslation } from "react-i18next";
+import NavBar from "./NavBar";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Dashboard = () => {
   const { t } = useTranslation();
+  const [isNavOpen, setIsNavOpen] = useState(true);
   const user = authService.getCurrentUser();
+
   if (user && user.nombre) {
     console.log("Nombre del usuario:", user.nombre);
   } else {
@@ -16,12 +20,23 @@ const Dashboard = () => {
     return <Navigate to="/login" />;
   }
 
+  // Maneja la apertura y cierre del NavBar
+  const toggleNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
   return (
-    <div>
-      <h2>
-        {t("welcome")} {user.nombre}
-      </h2>
-      <p>Este es el dashboard privado.</p>
+    <div
+      className="dashboard-container"
+      style={{ marginLeft: isNavOpen ? "250px" : "80px" }}
+    >
+      <NavBar isOpen={isNavOpen} toggleNav={toggleNav} />
+      <LanguageSwitcher />
+      <div className="dashboard-content">
+        <h2>
+          {t("welcome")} {user.nombre}
+        </h2>
+      </div>
     </div>
   );
 };

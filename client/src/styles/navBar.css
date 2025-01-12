@@ -1,0 +1,151 @@
+.navbar-container {
+  width: 250px;
+  transition: width 0.3s ease;
+  font-family: "Fredoka", sans-serif;
+  position: fixed; /* Fijar el NavBar en el lado izquierdo */
+  top: 0;
+  left: 0;
+  height: 100vh; /* Asegura que el NavBar ocupe toda la altura */
+  z-index: 100; /* Coloca el NavBar encima del contenido */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  margin-right: 10px;
+}
+
+h2 {
+  font-weight: 500;
+  transition: width 0.3s ease;
+}
+/* Dashboard */
+
+.dashboard-content {
+  transform: translateX(
+    25px
+  ); /* Mueve el contenido con un desplazamiento horizontal de 25px */
+  transition: transform 0.5s ease; /* Transición más suave con 'ease' */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Mantiene la sombra suave cuando el NavBar está cerrado */
+  font-family: "Fredoka", sans-serif;
+}
+
+.navbar-container.closed + .dashboard-content {
+  transform: translateX(
+    25px
+  ); /* Mantenemos el desplazamiento en 25px cuando el NavBar está cerrado */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Mantiene la sombra suave cuando el NavBar está cerrado */
+}
+
+.vertical-nav {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.vertical-nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.vertical-nav li {
+  margin: 15px 0;
+}
+
+.vertical-nav a {
+  text-decoration: none;
+  color: #000;
+  display: flex;
+  align-items: center;
+  padding: 9px;
+  transition: background 0.3s ease;
+  border-radius: 15px;
+}
+
+.vertical-nav a span {
+  margin-left: 10px;
+  white-space: nowrap;
+}
+
+.vertical-nav a.active,
+.vertical-nav a:hover {
+  background-color: #00bfff;
+  color: #fff;
+  border-radius: 15px;
+}
+
+.vertical-nav .icon {
+  font-size: 20px;
+}
+
+/* Ocultar textos y reducir ancho cuando el menú está cerrado */
+.navbar-container.closed {
+  width: 80px;
+}
+
+.navbar-container.closed .vertical-nav a span,
+.navbar-container.closed .logo h2,
+.navbar-container.closed .logout-text {
+  display: none;
+}
+
+.navbar-container.closed .vertical-nav ul {
+  align-items: center;
+}
+
+.profile {
+  margin-top: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile img {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.navbar-container.closed .profile img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.logo-nudo {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center; /* Centra el logo cuando el menú está cerrado */
+  transition: width 0.3s ease;
+}
+
+.logo-nudo img {
+  width: 50px;
+}
+
+.toggle-button {
+  margin: 10px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.toggle-button:hover {
+  background-color: #0056b3;
+}
+
+.vertical-nav a .fa-icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+/* Mostrar ícono de logout cuando el menú está cerrado */
+.navbar-container.closed .logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
