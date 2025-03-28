@@ -148,164 +148,27 @@ nudo-task/
 ## **Backend (Node.js + Express)**
 
 ### Dependencias esenciales
-
-Estas dependencias son necesarias para construir el servidor y conectarlo con la base de datos MySQL:
-
-1. **`express`**
-
-   - Framework para crear y gestionar el servidor web.
-   - Instalación:
-     ```bash
-     npm install express
-     ```
-
-2. **`mysql2`**
-
-   - Cliente MySQL para interactuar con la base de datos.
-   - Instalación:
-     ```bash
-     npm install mysql2
-     ```
-
-3. **`cors`**
-
-   - Permite configurar políticas de acceso para que el frontend pueda comunicarse con el backend.
-   - Instalación:
-     ```bash
-     npm install cors
-     ```
-
-4. **`dotenv`**
-
-   - Maneja variables de entorno como las credenciales de la base de datos.
-   - Instalación:
-     ```bash
-     npm install dotenv
-     ```
-
-5. **`nodemon`** (opcional, solo para desarrollo)
-
-   - Reinicia automáticamente el servidor cuando cambias el código.
-   - Instalación global (recomendada):
-     ```bash
-     npm install -g nodemon
-     ```
-   - Uso en desarrollo:
-     ```bash
-     nodemon server.js
-     ```
-
----
+lista-dependencias-backend.json
 
 ## **Frontend (React)**
 
 ### Dependencias esenciales
-
-Estas dependencias son necesarias para la interfaz de usuario y para conectar con el backend:
-
-1. **`react-router-dom`**
-
-   - Gestión de rutas en el frontend (ej: navegación entre páginas).
-   - Instalación:
-     ```bash
-     npm install react-router-dom
-     ```
-
-2. **`axios`**
-
-   - Cliente HTTP para hacer llamadas API al backend.
-   - Instalación:
-     ```bash
-     npm install axios
-     ```
-
-3. **`dotenv`** (opcional)
-
-   - Para manejar variables de entorno en el frontend (como la URL del backend).
-   - Instalación:
-     ```bash
-     npm install dotenv
-     ```
-
-4. **`react-icons`** (opcional)
-
-   - Provee íconos listos para usar.
-   - Instalación:
-     ```bash
-     npm install react-icons
-     ```
-
----
-
-### Dependencias opcionales (útiles para estilos)
-
-1. **`tailwindcss`** o **`bootstrap`**
-
-   - Frameworks CSS para diseñar rápidamente la interfaz.
-   - Instalación de TailwindCSS:
-     ```bash
-     npm install -D tailwindcss
-     npx tailwindcss init
-     ```
-   - Instalación de Bootstrap:
-     ```bash
-     npm install bootstrap
-     ```
-
-2. **`styled-components`**
-
-   - Para escribir estilos directamente en los componentes.
-   - Instalación:
-     ```bash
-     npm install styled-components
-     ```
-
----
-
-## **Herramientas recomendadas**
-
-Además de las dependencias, es importante contar con estas herramientas:
-
-1. **Node.js y npm**
-
-   - Asegúrate de tener Node.js instalado. Compruébalo con:
-     ```bash
-     node -v
-     npm -v
-     ```
-
-2. **MySQL**
-
-   - Necesitas un servidor MySQL configurado. Puedes usar MySQL Workbench para gestionarlo.
-
-3. **Postman o Insomnia** (opcional)
-
-   - Herramientas para probar tus APIs.
-
-4. **Git**
-
-   - Para el control de versiones y subir tu proyecto a un repositorio (como GitHub).
-
----
+lista-dependencias.json
 
 ### Verificación de dependencias
 
-#### En el Backend:
+- # En el Backend:
 
 ```bash
 npm list --depth=0
 ```
 
-#### En el Frontend:
+- # En el Frontend:
 
 ```bash
 cd client
 npm list --depth=0
 ```
-# DEEPENDENCIAS
-BCRYPT SEQUELIZE NODEMAILER  googleapis
-idioma
-npm install i18next react-i18next i18next-browser-languagedetector i18next-http-backend
 
 
 #########################################################################################
@@ -378,5 +241,70 @@ CREATE TABLE Subtarea (
 );
 
 
+### BASE DE DATOS POSTGRE
 
+-- Crear la base de datos
+CREATE DATABASE bd_nudotask;
+\c bd_nudotask;
 
+-- Tabla Usuario
+CREATE TABLE Usuario (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    nombre_usuario VARCHAR(50) UNIQUE NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    correo VARCHAR(100) UNIQUE NOT NULL,
+    contrasena VARCHAR(255) NOT NULL,
+    correo_verificado BOOLEAN DEFAULT FALSE,
+    foto VARCHAR(255)
+);
+
+-- Tabla Tokens
+CREATE TABLE Tokens (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP NOT NULL,
+    is_used BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (user_id) REFERENCES Usuario(id) ON DELETE CASCADE
+);
+
+-- Tabla Proyecto
+CREATE TABLE Proyecto (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    duracion INT NOT NULL, -- Duración en días
+    tecnologias VARCHAR(255) NOT NULL,
+    cliente VARCHAR(100),
+    id_etapa INT,
+    FOREIGN KEY (id_etapa) REFERENCES Etapa(id) ON DELETE SET NULL
+);
+
+-- Tabla Etapa
+CREATE TABLE Etapa (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    id_tarea INT,
+    FOREIGN KEY (id_tarea) REFERENCES Tarea(id) ON DELETE SET NULL
+);
+
+-- Tabla Tarea
+CREATE TABLE Tarea (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    prioridad VARCHAR(10) NOT NULL CHECK (prioridad IN ('Baja', 'Media', 'Alta')),
+    fecha_inicio DATE NOT NULL,
+    fecha_fin DATE NOT NULL,
+    tiempo INT NOT NULL, -- Tiempo en horas
+    modulo_kanban VARCHAR(15) NOT NULL CHECK (modulo_kanban IN ('Backlog', 'Por Hacer', 'Progreso', 'Problema')),
+    imagen VARCHAR(255)
+);
+
+-- Tabla Subtarea
+CREATE TABLE Subtarea (
+    id SERIAL PRIMARY KEY,
+    id_tarea INT NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    FOREIGN KEY (id_tarea) REFERENCES Tarea(id) ON DELETE CASCADE
+);
